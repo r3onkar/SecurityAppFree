@@ -2,6 +2,7 @@ package com.secuirty.controller;
 
 import java.util.Optional;
 
+import com.secuirty.services.StudentServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,25 +27,25 @@ public class StudentController {
 	private static Logger logger = LoggerFactory.getLogger(StudentController.class);
 
 	@Autowired
-	private StudentRepo studentRepo;
+	private StudentServices studentServices;
 	
 	@PostMapping("/addStudent")
 	public Student addStudent(@RequestBody Student student ) {
 		logger.debug("Adding-Account");
 
-		return studentRepo.save(student);
+		return studentServices.addStudent(student);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Student>getStudent(@PathVariable ("id") int urlid){
-		Optional<Student> byId = studentRepo.findById(urlid);
-		if (!byId.isPresent()) {
-			return ResponseEntity.noContent().build();
-		}
-		
-		return ResponseEntity.ok(byId.get());
-		
-	}
+//	@GetMapping("/{id}")
+//	public ResponseEntity<Student>getStudent(@PathVariable ("id") int urlid){
+//		Optional<Student> byId = studentServices.findById(urlid);
+//		if (!byId.isPresent()) {
+//			return ResponseEntity.noContent().build();
+//		}
+//
+//		return ResponseEntity.ok(byId.get());
+//
+//	}
 
 	
 //	ResponseEntity<Employees> getEmployee(@PathVariable("empno") int empno) {
